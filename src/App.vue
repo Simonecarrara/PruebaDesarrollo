@@ -1,16 +1,22 @@
 <template>
   <div id="app">
+    <Header />
+    <AddProduct v-on:add-Product="addProduct"/>
     <ProductList v-bind:my_products="products" v-on:del-prod="deleteProduct"/>
   </div>
 </template>
 
 <script>
 import ProductList from './components/ProductList';
+import Header from './components/layout/Header';
+import AddProduct from './components/AddProduct'
 
 export default {
   name: 'app',
   components: {
-    ProductList
+    Header,
+    ProductList,
+    AddProduct
   },
   data(){
     return {
@@ -42,6 +48,9 @@ export default {
   methods:{
     deleteProduct(id){
       this.products= this.products.filter(product=> product.id != id);
+    },
+    addProduct(newProduct){
+      this.products=[...this.products, newProduct];
     }
   }
 }
