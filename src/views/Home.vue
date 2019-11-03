@@ -1,21 +1,18 @@
 <template>
   <div id="app">
-    <Header />
     <AddProduct v-on:add-Product="addProduct"/>
     <ProductList v-bind:my_products="products" v-on:del-prod="deleteProduct"/>
   </div>
 </template>
 
 <script>
-import ProductList from './components/ProductList';
-import Header from './components/layout/Header';
-import AddProduct from './components/AddProduct';
+import ProductList from '../components/ProductList';
+import AddProduct from '../components/AddProduct';
 import axios from 'axios';
 
 export default {
-  name: 'app',
+  name: 'home',
   components: {
-    Header,
     ProductList,
     AddProduct
   },
