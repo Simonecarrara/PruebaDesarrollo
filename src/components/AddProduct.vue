@@ -16,7 +16,6 @@ export default {
         addProduct(e){
             e.preventDefault();
             const newProduct = {
-                id: 10,
                 name: this.name,
                 description: 'very good',
                 stock: 2,
