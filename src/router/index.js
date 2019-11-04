@@ -1,20 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import ProductList from '../components/ProductList'
 import AddProduct from '../components/AddProduct'
+import UpdProduct from '../components/UpdProduct'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home
+    name: 'ProductList',
+    component: ProductList
   },
   {
     path: '/nuevoProducto',
     name: 'nuevoProducto',
     component: AddProduct
+  },
+  {
+    path:'/update/:id',
+    name: 'modificarProducto',
+    component: UpdProduct
   }
 ]
 
