@@ -12,9 +12,14 @@ const getters={
 const actions={
     async fetchProducts({commit}){
 
-        const response= await axios.get('https://almacen-vue.firebaseio.com/products.json');
+        const response= await axios.get('https://almacen-vue.firebaseio.com/products.json').catch(err=>alert(err));
 
         commit('displayProducts', response);
+    },
+
+    async getProductById({commit},id){
+        const response=await axios.get(`https://almacen-vue.firebaseio.com/products/${id}.json`).catch(err=>alert(err));
+        commit('oneProduct', response);
     },
 
     async addProduct({commit},newProduct){
@@ -25,13 +30,13 @@ const actions={
           description,
           stock,
           image
-        });
+        }).catch(err=>alert(err));
 
         commit('addProduct', response);
     },
 
     async deleteProduct({commit},id){
-        await axios.delete(`https://almacen-vue.firebaseio.com/products/${id}.json`);
+        await axios.delete(`https://almacen-vue.firebaseio.com/products/${id}.json`).catch(err=>alert(err));
         commit('deleted', id);
     },
 
@@ -42,7 +47,7 @@ const actions={
             stock,
             description,
             image
-        });
+        }).catch(err=>alert(err));
         commit('modProduct',response);
     }
 }
@@ -55,6 +60,7 @@ const mutations={
             }
             state.products=productArray;
         },
+    oneProduct:(state,response)=>state.products=response.data,
     addProduct: (state, res)=>{
         if(res){
             alert('Producto grabado correctamente');
