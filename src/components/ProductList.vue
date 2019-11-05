@@ -1,9 +1,8 @@
 <template>
     <div>
-        <h1>productlist works</h1>
-        <p>{{allProducts}}</p>
+        <h1>Lista de productos</h1>
         <div v-bind:key="product.id" v-for="product in allProducts">
-            <h1>{{product.id}} es el id</h1>
+            <h2>Producto: {{product.name}}</h2>
             <ProductItem v-bind:product="product" 
             v-on:del-prod="delProd(product)"/>
         </div>

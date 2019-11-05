@@ -1,8 +1,7 @@
 <template>
   <div>
-    <h2>Modifica los campos del producto {{$route.params.id}}</h2>
-    <h1>desde la propriedad = {{allProducts}}</h1>
-    <h2>nombre? {{allProducts.name}}</h2>
+    <h2>Modifica los campos del producto {{allProducts.name}}</h2>
+    
     <form @submit="packNewProduct">
       <input type="text" v-model="name"  name="name" :placeholder="allProducts.name" required />
       <br />
@@ -17,7 +16,8 @@
       <br />
       <label for="image">Elige una imágen</label>
       <br />
-      <input type="text" v-model="imageUrl" name="image" :placeholder="allProducts.image" />
+      <img :src="allProducts.imageURL" alt="imágen producto">
+      <input type="text" v-model="imageURL" name="image" :placeholder="allProducts.image" />
       
       <br />
       <input type="submit" value="Submit" />
@@ -33,9 +33,9 @@ export default {
     data() {
         return {
             name: "",
-            stock: "",
+            stock: null,
             description: "",
-            imageUrl: "",
+            imageURL: "",
             id: this.$route.params.id
         };
     },
@@ -43,20 +43,20 @@ export default {
         ...mapActions(["updateProduct","getProductById"]),
         packNewProduct(e) {
             e.preventDefault();
-            if (this.name.trim() != "" && this.stock != null) {
+            if (this.name.trim() != "" && this.stock != null && confirm('Estás a punto de modificar el producto. ¿Quieres seguir?')) {
                 
                 const newProduct = {
                     name: this.name,
                     description: this.description,
                     stock: this.stock,
-                    image: this.imageUrl,
+                    imageURL: this.imageURL,
                     id:this.id
                 };
                 this.updateProduct(newProduct).then(() => {
                     this.name = "";
                     this.stock = 0;
                     this.description = "";
-                    this.imageUrl = "";
+                    this.imageURL = "";
                     this.$router.push("/");
                 });
             }

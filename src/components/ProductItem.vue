@@ -1,7 +1,8 @@
 <template>
     <div v-bind:class="{'outofstock':product.stock==0}">
+        <img :src="product.imageURL" alt="imágen producto" v-if="product.imageURL" style="max-width:100px;">
         <p>
-            {{product.name}}+{{product.stock}}+{{product.image}}+{{product.description}} 
+            {{product.name}}+{{product.stock}}{{product.description}} 
             <button @click="$emit('del-prod',product)">Elimina</button>
             <button @click="modProd(product.id)">Modifica</button>
         </p>

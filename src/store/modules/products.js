@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as firebase from 'firebase'
 
 const state ={
     products:[]
@@ -22,7 +23,7 @@ const actions={
         commit('oneProduct', response);
     },
 
-    async addProduct({commit},newProduct){
+    /*async addProduct({commit},newProduct){
         const { name, description, stock, image}=newProduct;
   
         const response = await axios.post('https://almacen-vue.firebaseio.com/products.json',{
@@ -33,6 +34,27 @@ const actions={
         }).catch(err=>alert(err));
 
         commit('addProduct', response);
+    },*/
+    async addProduct({commit},newProduct){
+        const { name, description, stock, image}=newProduct;
+        let key;
+        let ext;
+  
+        await axios.post('https://almacen-vue.firebaseio.com/products.json',{
+          name,
+          description,
+          stock,
+        }).then(res=>{
+            key=res.data.name;
+            const filename=image.name;
+            ext= filename.slice(filename.lastIndexOf('.'));
+            return firebase.storage().ref('products/'+key+ext).put(image);
+        }).then(()=>{
+            return firebase.storage().ref('products/'+key+ext).getDownloadURL();
+        }).then(fileData=>{
+            return firebase.database().ref('products').child(key).update({imageURL:fileData})
+        }).then((res)=>commit('image',res)).catch(err=>alert(err));
+        
     },
 
     async deleteProduct({commit},id){
@@ -41,12 +63,12 @@ const actions={
     },
 
     async updateProduct({commit},newProd){
-        const{name, stock, description, image, id}=newProd;
+        const{name, stock, description, imageURL, id}=newProd;
         const response=await axios.put(`https://almacen-vue.firebaseio.com/products/${id}.json`,{
             name,
             stock,
             description,
-            image
+            imageURL
         }).catch(err=>alert(err));
         commit('modProduct',response);
     }
@@ -74,6 +96,14 @@ const mutations={
             alert('Producto modificado correctamente');
         }else{
             alert('Modificación no grabada');
+        }
+    },
+    image:(state,res)=>{
+        state.products=res;
+        if(res){
+            alert(res);
+        }else{
+            alert('false res=: '+res+" -- "+ state );
         }
     }
 };

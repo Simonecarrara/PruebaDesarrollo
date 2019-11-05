@@ -11,10 +11,13 @@
             <br/>
             <label for="image">Elige una imágen</label>
             <br/>
-            <input type="text" v-model="imageUrl" name="image" placeholder="URL de la imágen">
+            <img :src="imageURL" v-if="imageURL" alt="imágen seleccionada" style="max-width:100px;">
+            <br/>
+            <input type="file" accept="image/*" @change="onFilePicked">
+            <!-- <input type="text" v-model="imageUrl" name="image" placeholder="URL de la imágen"> -->
             <!-- <img :src="imageUrl" alt="imágen seleccionada"> -->
             <br/>
-            <input type="submit" value="Submit" >
+            <input type="submit" value="Crea" >
         </form>
     </div>
 </template>
@@ -27,8 +30,8 @@ export default {
             name:'',
             stock:'',
             description:'',
-            /*image:null,*/
-            imageUrl:''
+            image:null,
+            imageURL:null
         }
     },
     methods:{
@@ -40,21 +43,20 @@ export default {
                     name: this.name,
                     description: this.description,
                     stock: this.stock,
-                    image: this.imageUrl
+                    image: this.image
                 };
                 this.addProduct(newProduct).then(()=>{
                     this.name='';
                     this.stock=0;
                     this.description='';
-                    this.imageUrl='';
+                    this.imageURL='';
                     this.$router.push('/');
                 });
                 
-            }
-            
+            }  
         },
-        /*processFile(e){
-            const files=e.target.files;
+        onFilePicked(event){
+            const files=event.target.files;
             let filename = files[0].name;
             if(filename.lastIndexOf('.')<=0){
                 return alert('Por favor inserta un fichero válido');
@@ -65,9 +67,8 @@ export default {
             })
             fileReader.readAsDataURL(files[0]);
             this.image=files[0];
-            alert(this.image);
-        }*/
-    },
+        }
+    }
     
 }
 </script>
