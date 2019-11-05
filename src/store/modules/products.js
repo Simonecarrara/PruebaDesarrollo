@@ -40,8 +40,8 @@ const actions={
         commit('deleted', id);
     },
 
-    async updateProduct({commit},id,newProd){
-        const{name, stock, description, image}=newProd;
+    async updateProduct({commit},newProd){
+        const{name, stock, description, image, id}=newProd;
         const response=await axios.put(`https://almacen-vue.firebaseio.com/products/${id}.json`,{
             name,
             stock,

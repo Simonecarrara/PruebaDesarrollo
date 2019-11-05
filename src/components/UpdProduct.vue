@@ -44,12 +44,13 @@ export default {
         packNewProduct(e) {
             e.preventDefault();
             if (this.name.trim() != "" && this.stock != null) {
-
+                
                 const newProduct = {
                     name: this.name,
                     description: this.description,
                     stock: this.stock,
-                    image: this.imageUrl
+                    image: this.imageUrl,
+                    id:this.id
                 };
                 this.updateProduct(newProduct).then(() => {
                     this.name = "";
