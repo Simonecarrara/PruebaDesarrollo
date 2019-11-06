@@ -99,11 +99,11 @@ const mutations={
         }
     },
     image:(state,res)=>{
-        state.products=res;
-        if(res){
+        
+        if(res>0){
             alert(res);
         }else{
-            alert('false res=: '+res+" -- "+ state );
+            alert('done');
         }
     }
 };

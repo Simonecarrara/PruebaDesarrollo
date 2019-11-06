@@ -1,11 +1,14 @@
 <template>
-    <header class="header">
-        <h1>Almacen</h1>
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/nuevoProducto">Crea un nuevo producto</router-link>
-        </div>
-    </header>
+<div>
+    <v-app-bar color="blue-grey">
+        <v-toolbar-title>Almacen</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items>
+            <v-btn text><router-link to="/" class="white--text">Home</router-link></v-btn>
+            <v-btn outlined color="blue-grey lighten-5"><router-link to="/nuevoProducto" class="white--text">Crea un nuevo producto</router-link></v-btn>
+        </v-toolbar-items>
+    </v-app-bar>
+</div>
 </template>
 <script>
 export default {
@@ -13,13 +16,8 @@ export default {
 }
 </script>
 <style scoped>
-.header{
-    background: rgb(26, 26, 26);
-    color: white;
-    text-align: center;
-    padding: 10px;
-}
-header a{
+
+ a{
     color: white;
     text-decoration: none;
     padding-right: 5px;

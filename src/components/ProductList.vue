@@ -1,11 +1,13 @@
 <template>
     <div>
-        <h1>Lista de productos</h1>
-        <div v-bind:key="product.id" v-for="product in allProducts">
-            <h2>Producto: {{product.name}}</h2>
-            <ProductItem v-bind:product="product" 
-            v-on:del-prod="delProd(product)"/>
-        </div>
+            <h1>Lista de productos</h1>
+            <v-container fluid color="primary">
+                <v-row>
+                    <ProductItem v-bind:product="product" 
+                    v-on:del-prod="delProd(product)" v-bind:key="product.id" v-for="product in allProducts"/>                    
+                </v-row>
+            </v-container>      
+        
     </div>
 </template>
 <script>
